@@ -1,0 +1,89 @@
+﻿﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link href="styles.css" rel="stylesheet" />
+
+    <script src="flights.js"></script>
+
+    <script>
+
+        function init() {
+            let from = document.getElementById("from");
+            let to = document.getElementById("to");
+
+            let headerFrom = document.createElement("h1");
+            headerFrom.innerText = "From";
+            from.appendChild(headerFrom);
+
+            let headerTo = document.createElement("h1");
+            headerTo.innerText = "To";
+            to.appendChild(headerTo);
+
+            // set will ignore adding duplicate values
+            // can be also implmented as array and before adding to check if exists already
+            let fromSet = new Set();
+            let toSet = new Set();
+
+            for (flight of flights.regular) {
+                console.log(flight);
+                fromSet.add(flight.from);
+                toSet.add(flight.to);
+            }
+
+            for (flightFrom of fromSet) {
+                console.log(flight);
+                let button = document.createElement("button");               
+                button.innerHTML= flightFrom;
+                button.value = flightFrom;
+                button.setAttribute('onclick', 'change(this)');
+                from.appendChild(button);
+            }
+
+            for (flightTo of toSet) {
+                console.log(flight);
+                let button = document.createElement("button");
+                button.innerText = flightTo;
+                to.appendChild(button);
+            }
+        }
+
+        function change(tt) {
+            tt.className="sel";
+            
+            let to = document.getElementById("to"); 
+            to.innerHTML = "";
+            let headerTo = document.createElement("h1");
+            headerTo.innerText = "To";
+            to.appendChild(headerTo);     
+            for (flight of flights.regular) {
+               
+                if (flight.from == tt.value) {
+                    let button = document.createElement("button");
+                    button.innerText = flight.to;
+                    to.appendChild(button);
+                }
+            }           
+        }
+    </script>
+
+</head>
+<body onload="init()">
+
+    <div id="container">
+
+        <div id="from">
+
+        </div>
+        <div id="to">
+
+        </div>
+
+
+    </div>
+
+
+</body>
+</html>
